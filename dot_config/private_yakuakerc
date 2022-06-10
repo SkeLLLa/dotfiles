@@ -1,0 +1,12 @@
+[Desktop Entry]
+DefaultProfile=m03geek.profile
+
+[Dialogs]
+FirstRun=false
+
+[Shortcuts]
+split-left-right=Ctrl+Shift+PgUp
+split-top-bottom=Ctrl+Shift+PgDown
+
+[Window]
+Height=100
