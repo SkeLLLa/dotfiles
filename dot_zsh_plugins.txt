@@ -1,16 +1,17 @@
 # .zsh_plugins.txt
 
 # comments are supported like this
-zshzoo/zfunctions
-#zshzoo/zshrc.d
+# zshzoo/zfunctions
+# zshzoo/zshrc.d
 
 # empty lines are skipped
 
 # annotations are also allowed:
-#ohmyzsh/ohmyzsh   path:lib/clipboard.zsh
-#ohmyzsh/ohmyzsh   path:plugins/colored-man-pages
+# ohmyzsh/ohmyzsh   path:lib/clipboard.zsh
+# ohmyzsh/ohmyzsh   path:plugins/colored-man-pages
 romkatv/zsh-bench kind:path
 olets/zsh-abbr    kind:defer
+# ohmyzsh/ohmyzsh path:plugins/dotenv
 
 # prompts:
 # sindresorhus/pure     kind:fpath
@@ -19,5 +20,9 @@ romkatv/powerlevel10k kind:fpath
 # other plugins
 zsh-users/zsh-syntax-highlighting
 zsh-users/zsh-completions
-#zsh-users/zsh-history-substring-search
+zsh-users/zsh-history-substring-search
 zsh-users/zsh-autosuggestions
+zsh-users/zsh-autosuggestions
+zsh-users/zsh-completions
+zsh-users/zsh-history-substring-search
+zsh-users/zsh-syntax-highlighting
