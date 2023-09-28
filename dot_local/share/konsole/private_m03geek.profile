@@ -1,6 +1,7 @@
 [Appearance]
 ColorScheme=Breeze
 Font=Hack Nerd Font Mono,11,-1,5,50,0,0,0,0,0
+UseFontLineChararacters=true
 
 [General]
 Name=m03geek
