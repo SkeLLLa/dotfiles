@@ -1,3 +1,7 @@
+[Animation]
+Frames=10
+UseWMAssist=false
+
 [Desktop Entry]
 DefaultProfile=m03geek.profile
 
