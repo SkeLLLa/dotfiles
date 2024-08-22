@@ -1,0 +1,280 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+right_format = """
+[](fg:color_bg_l3)\
+$character\
+[](bg:color_bg_l3 fg:color_bg_l2)\
+$cmd_duration\
+[](bg:color_bg_l2 fg:color_bg_l1)\
+$time\
+[](bg:color_bg_l1 fg:color_bg_l0)\
+[ ](bg:color_bg_l0)\
+"""
+
+format = """
+[ ](fg:color_bg_l0)\
+$username\
+[](fg:color_bg_l0 bg:color_bg_l1)\
+$directory\
+[](fg:color_bg_l1 bg:color_bg_l2)\
+$git_branch\
+$git_status\
+[](fg:color_bg_l2 bg:color_bg_l3)\
+[](fg:color_bg_l3 bg:color_bg_l4)\
+[](fg:color_bg_l4)\
+$fill\
+[](fg:color_bg_l4)\
+$kubernetes\
+$helm\
+$terraform\
+[](bg:color_bg_l4 fg:color_bg_l3)\
+$package\
+$nodejs\
+$rust\
+[](bg:color_bg_l3 fg:color_bg_l2)\
+${custom.ip}\
+[](bg:color_bg_l2 fg:color_bg_l1)\
+$battery\
+[](bg:color_bg_l1 fg:color_bg_l0)\
+$hostname\
+[ ](bg:color_bg_l0)\
+$line_break\
+$os
+"""
+
+palette = 'm03geek_dark'
+
+[palettes.m03geek_dark]
+color_bg_l0 = '#64b5f6'
+color_bg_l1 = '#5a5a5a'
+color_bg_l2 = '#81c784'
+color_bg_l3 = '#ffcc80'
+color_bg_l4 = '#b39ddb'
+color_fg_l0 = '#e3f2fd'
+color_fg_l1 = '#ffffff'
+color_fg_l2 = '#5a5a5a'
+color_fg_l3 = '#333333'
+color_fg_l4 = '#ffebee'
+color_user = '#e4e4e4'
+color_root = '#cc241d'
+color_green = '#98971a'
+color_orange = '#d65d0e'
+color_purple = '#b16286'
+color_yellow = '#d79921'
+color_black = '#000000'
+color_bat_10 = '#ff6961'
+color_bat_20 = '#f07663'
+color_bat_30 = '#e18366'
+color_bat_40 = '#d29068'
+color_bat_50 = '#c39d6b'
+color_bat_60 = '#b3a96d'
+color_bat_70 = '#a4b670'
+color_bat_80 = '#95c372'
+color_bat_90 = '#86d075'
+color_bat_100 = '#77dd77'
+
+[username]
+style_user = 'bg:color_bg_l0 fg:color_user'
+style_root = 'bg:color_bg_l0 fg:color_root'
+format = '[ $user]($style)'
+disabled = false
+show_always = true
+aliases = { "m03geek" = " ", "root" = " " }
+
+[directory]
+style = 'bg:#5a5a5a fg:#ffffff'
+read_only_style = 'bg:#5a5a5a fg:#c78481'
+format = "[$read_only ]($read_only_style)[$path ]($style)"
+truncation_length = 3
+truncation_symbol = " /"
+read_only = " 󰌾"
+
+[directory.substitutions]
+"documents" = "󰈙 "
+"downloads" = " "
+"music" = " "
+"pictures" = " "
+"dev" = " "
+"~" = " "
+
+[git_branch]
+symbol = ""
+style = "bg:color_bg_l2 fg:color_fg_l2"
+format = '[ $symbol $branch ]($style)'
+
+[git_status]
+style = "bg:color_bg_l2 fg:color_fg_l2"
+format = '[$all_status$ahead_behind ]($style)'
+
+[fill]
+symbol = ' '
+
+[hostname]
+ssh_only = true
+format = '[$ssh_symbol $hostname]($style)'
+style = 'bg:color_bg_l0 fg:color_fg_l0'
+trim_at = '.companyname.com'
+disabled = false
+
+[time]
+disabled = false
+time_format = "%R" # Hour:Minute Format
+style = "fg:color_fg_l1 bg:color_bg_l1"
+format = '[  $time ]($style)'
+
+[character]
+success_symbol = '[ ](fg:color_green bg:color_bg_l3)'
+error_symbol = '[ ](fg:color_orange bg:color_bg_l3)'
+format = '$symbol'
+
+[cmd_duration]
+min_time = 500
+format = '[ $duration]($style)'
+style = 'fg:color_fg_l2 bg:color_bg_l2'
+
+[battery]
+full_symbol = '󰚥 '
+unknown_symbol = '󰚥 '
+charging_symbol = '󰂏 '
+discharging_symbol = '󰂌 '
+format = '[$symbol$percentage ]($style)'
+
+[[battery.display]]
+threshold = 10
+style = "bg:color_bg_l1 fg:color_bat_10"
+charging_symbol = '󰁺󱐋 '
+discharging_symbol = '󰁺 '
+
+[[battery.display]]
+threshold = 20
+style = "bg:color_bg_l1 fg:color_bat_20"
+charging_symbol = '󰁻󱐋 '
+discharging_symbol = '󰁻 '
+
+[[battery.display]]
+threshold = 30
+style = "bg:color_bg_l1 fg:color_bat_30"
+charging_symbol = '󰁼󱐋 '
+discharging_symbol = '󰁼 '
+
+[[battery.display]]
+threshold = 40
+style = "bg:color_bg_l1 fg:color_bat_40"
+charging_symbol = '󰁽󱐋 '
+discharging_symbol = '󰁽 '
+
+[[battery.display]]
+threshold = 50
+style = "bg:color_bg_l1 fg:color_bat_50"
+charging_symbol = '󰁾󱐋 '
+discharging_symbol = '󰁾 '
+
+[[battery.display]]
+threshold = 60
+style = "bg:color_bg_l1 fg:color_bat_60"
+charging_symbol = '󰁿󱐋 '
+discharging_symbol = '󰁿 '
+
+[[battery.display]]
+threshold = 70
+style = "bg:color_bg_l1 fg:color_bat_70"
+charging_symbol = '󰂀󱐋 '
+discharging_symbol = '󰂀 '
+
+[[battery.display]]
+threshold = 80
+style = "bg:color_bg_l1 fg:color_bat_80"
+charging_symbol = '󰂁󱐋 '
+discharging_symbol = '󰂁 '
+
+[[battery.display]]
+threshold = 90
+style = "bg:color_bg_l1 fg:color_bat_90"
+charging_symbol = '󰂂󱐋 '
+discharging_symbol = '󰂂 '
+
+[[battery.display]]
+threshold = 100
+style = "bg:color_bg_l1 fg:color_bat_100"
+charging_symbol = '󰚥 '
+discharging_symbol = '󱐋 '
+
+[custom.ip]
+command = "curl -s ipv4.icanhazip.com"
+when = "true"
+shell = "zsh"
+format = "[󰩠 $output]($style)"
+style = "bg:color_bg_l2 fg:color_fg_l2"
+
+[os]
+disabled = false
+
+[os.symbols]
+Alpaquita = " "
+Alpine = " "
+AlmaLinux = " "
+Amazon = " "
+Android = " "
+Arch = " "
+Artix = " "
+CentOS = " "
+Debian = " "
+DragonFly = " "
+Emscripten = " "
+EndeavourOS = " "
+Fedora = " "
+FreeBSD = " "
+Garuda = "󰛓 "
+Gentoo = " "
+HardenedBSD = "󰞌 "
+Illumos = "󰈸 "
+Kali = " "
+Linux = " "
+Mabox = " "
+Macos = " "
+Manjaro = " "
+Mariner = " "
+MidnightBSD = " "
+Mint = " "
+NetBSD = " "
+NixOS = " "
+OpenBSD = "󰈺 "
+openSUSE = " "
+OracleLinux = "󰌷 "
+Pop = " "
+Raspbian = " "
+Redhat = " "
+RedHatEnterprise = " "
+RockyLinux = " "
+Redox = "󰀘 "
+Solus = "󰠳 "
+SUSE = " "
+Ubuntu = " "
+Unknown = " "
+Void = " "
+Windows = "󰍲 "
+
+[helm]
+format = '[⎈ $version ]($style)'
+style = 'fg:color_fg_l4 bg:color_bg_l4'
+
+[kubernetes]
+format = '[$symbol$context( \($namespace\))]($style) '
+style = 'fg:color_fg_l4 bg:color_bg_l4'
+
+[terraform]
+format = '[$symbol$workspace ]($style)'
+style = 'fg:color_fg_l4 bg:color_bg_l4'
+
+[nodejs]
+format = '[$symbol($version) ]($style)'
+style = 'fg:color_fg_l3 bg:color_bg_l3'
+
+[rust]
+format = '[$symbol($version) ]($style)'
+style = 'fg:color_fg_l3 bg:color_bg_l3'
+
+[package]
+format = '[$symbol$version ]($style)'
+style = 'fg:color_fg_l3 bg:color_bg_l3'
+display_private = true

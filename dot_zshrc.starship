@@ -1,0 +1,62 @@
+export TERM="xterm-256color"
+export CHEAT_USE_FZF=true
+export FZF_CTRL_T_OPTS="--walker-skip .git,node_modules,target --preview 'bat -n --color=always {}' --bind 'ctrl-/:change-preview-window(down|hidden|)'"
+export EIX_LIMIT=0
+export PATH="$HOME/bin:$PATH"
+export EDITOR=micro
+export ZSH_DISABLE_COMPFIX=true
+#export ZSH_DOTENV_PROMPT=false
+export ZSH_DOTENV_ALLOWED_LIST=~/.config/zsh/dotenv.allowed.list
+export ZSH_DOTENV_DISALLOWED_LIST=~/.config/zsh/dotenv.disallowed.list
+# pnpm
+export PNPM_HOME="/home/m03geek/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
+export VOLTA_FEATURE_PNPM=1
+
+bindkey "\e[H" beginning-of-line
+bindkey "\e[F" end-of-line
+bindkey "\E[3~" delete-char
+bindkey '^[[A' history-substring-search-up # or '\eOA'
+bindkey '^[[B' history-substring-search-down # or '\eOB'
+
+alias ls="lsd"
+#alias cat="bat"
+alias df="duf"
+
+HISTSIZE=50000
+SAVEHIST=50000
+HISTFILE=~/.zsh_history
+#ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+DEFAULT_USER='m03geek'
+
+setopt APPEND_HISTORY
+setopt EXTENDED_HISTORY
+setopt INC_APPEND_HISTORY
+setopt SHARE_HISTORY
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_SAVE_NO_DUPS
+
+# uncomment if you want your session to have commands like `antidote update`
+autoload -Uz $zhome/.antidote/functions/antidote
+
+# clone antidote if necessary
+[[ -e ~/.antidote ]] || git clone https://github.com/mattmc3/antidote.git ~/.antidote
+# source antidote
+. ~/.antidote/antidote.zsh
+antidote load
+autoload -U compinit && compinit
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/bin/terraform terraform
+autoload -U promptinit && promptinit
+
+source <(fzf --zsh)
+
+eval "$(starship init zsh)"
