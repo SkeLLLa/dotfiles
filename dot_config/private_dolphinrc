@@ -1,3 +1,8 @@
+[ExtractDialog]
+1920x1200 screen: Height=600
+1920x1200 screen: Width=1256
+DirHistory[$e]=$HOME/tmp/
+
 [General]
 ShowFullPath=true
 Version=202
@@ -12,7 +17,6 @@ Places Icons Static Size=22
 
 [MainWindow]
 MenuBar=Disabled
-ToolBarsMovable=Disabled
 
 [PreviewSettings]
 Plugins=audiothumbnail,blenderthumbnail,comicbookthumbnail,cursorthumbnail,djvuthumbnail,ebookthumbnail,exrthumbnail,directorythumbnail,fontthumbnail,imagethumbnail,jpegthumbnail,kraorathumbnail,windowsexethumbnail,windowsimagethumbnail,mobithumbnail,opendocumentthumbnail,gsthumbnail,rawthumbnail,svgthumbnail,ffmpegthumbs

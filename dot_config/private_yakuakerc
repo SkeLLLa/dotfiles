@@ -1,6 +1,5 @@
 [Animation]
 Frames=10
-UseWMAssist=false
 
 [Desktop Entry]
 DefaultProfile=m03geek.profile
@@ -13,4 +12,4 @@ split-left-right=Ctrl+Shift+PgUp
 split-top-bottom=Ctrl+Shift+PgDown
 
 [Window]
-Height=100
+Height=90

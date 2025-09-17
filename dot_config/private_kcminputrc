@@ -3,4 +3,4 @@ ExtraButton1=Key,Meta+Ctrl+Down
 ExtraButton2=Key,Meta+Ctrl+Left
 
 [Mouse]
-cursorTheme=Uos-fulldistro-icons-Dark
+cursorTheme=breeze_cursors

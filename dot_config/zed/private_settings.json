@@ -7,21 +7,37 @@
 // custom settings, run the `zed: Open Default Settings` command
 // from the command palette
 {
-  "features": {
-    "inline_completion_provider": "none"
+  "edit_predictions": {
+    "mode": "eager",
+    "copilot": {
+      "proxy": null,
+      "proxy_no_verify": null
+    },
+    "enabled_in_assistant": true
   },
-  "ui_font_size": 16,
+  "assistant": {
+    "default_model": {
+      "provider": "copilot_chat",
+      "model": "gpt-4o"
+    },
+    "version": "2"
+  },
   "buffer_font_size": 14,
   "autosave": "on_focus_change",
   "buffer_font_family": "JetBrainsMono Nerd Font",
+  "terminal": {
+    "font_family": "JetBrainsMono Nerd Font",
+    "line_height": "standard",
+    "font_size": 14
+  },
   "telemetry": {
     "diagnostics": false,
     "metrics": false
   },
   "theme": {
-    "mode": "system",
+    "mode": "dark",
     "light": "One Light",
-    "dark": "Ayu Dark"
+    "dark": "Atelier Savanna Dark"
   },
   "languages": {
     "Markdown": {
