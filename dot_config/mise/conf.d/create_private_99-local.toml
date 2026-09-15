@@ -1,0 +1,6 @@
+# Machine-private Mise overrides, for example:
+#
+# [settings.github]
+# credential_command = "fnox get GITHUB_PERSONAL_ACCESS_TOKEN"
+#
+# This file is created once and is never overwritten by chezmoi.

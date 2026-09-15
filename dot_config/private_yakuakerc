@@ -2,7 +2,7 @@
 Frames=10
 
 [Desktop Entry]
-DefaultProfile=m03geek.profile
+DefaultProfile=default.profile
 
 [Dialogs]
 FirstRun=false

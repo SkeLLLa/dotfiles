@@ -1,0 +1,58 @@
+[settings]
+experimental = true
+idiomatic_version_file = true
+
+[env]
+MISE_LIST_ALL_VERSIONS = "0"
+DISABLE_TELEMETRY = "1"
+DISABLE_ERROR_REPORTING = "1"
+DISABLE_FEEDBACK_COMMAND = "1"
+CLAUDE_CODE_DISABLE_FEEDBACK_SURVEY = "1"
+CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC = "1"
+feedbackSurveyRate = "0"
+
+[tools]
+bun = "latest"
+chezmoi = "latest"
+claude-code = "latest"
+gh = "latest"
+hyperfine = "latest"
+jd = "latest"
+jsonschema = "latest"
+node = "latest"
+qsv = "latest"
+rtk = "latest"
+starship = "latest"
+uv = "latest"
+yq = "latest"
+opencode = "1.18.30"
+lazygit = "0.65.1"
+"pipx:serena-agent" = "latest"
+yarn = "4.18.0"
+"github:dmtrKovalenko/fff.nvim"= { version = "0.10.6", exe = "fff-mcp", platforms = { linux-x64 = { asset_pattern = "fff-mcp-x86_64-unknown-linux-musl" }, linux-arm64 = { asset_pattern = "fff-mcp-aarch64-unknown-linux-musl" }, macos-x64 = { asset_pattern = "fff-mcp-x86_64-apple-darwin" }, macos-arm64 = { asset_pattern = "fff-mcp-aarch64-apple-darwin" } } }
+"github:redhat-et/ripwire" = { version = "0.3.8", exe = "ripwire", platforms = { linux-x64 = { asset_pattern = "ripwire-*-linux-x64.tar.gz" }, linux-arm64 = { asset_pattern = "ripwire-*-linux-arm64.tar.gz" }, macos-x64 = { asset_pattern = "ripwire-*-macos-x64.tar.gz" }, macos-arm64 = { asset_pattern = "ripwire-*-macos-arm64.tar.gz" } } }
+"github:openai/codex" = { version = "latest", exe = "codex", extract_all = true, bin_path = "bin", platforms = { linux-x64 = { asset_pattern = "codex-package-x86_64-unknown-linux-musl.tar.gz" }, linux-arm64 = { asset_pattern = "codex-package-aarch64-unknown-linux-musl.tar.gz" }, macos-x64 = { asset_pattern = "codex-package-x86_64-apple-darwin.tar.gz" }, macos-arm64 = { asset_pattern = "codex-package-aarch64-apple-darwin.tar.gz" } } }
+terragrunt = "latest"
+vault = "latest"
+fnox = "latest"
+"npm:context-mode" = "latest"
+argocd = "latest"
+pnpm = "12.4.1"
+"github:can1357/oh-my-pi" = "18.1.19"
+"npm:@earendil-works/pi-coding-agent" = "0.85.1"
+
+[tools."github:pnpm/pnpm"]
+version = "latest"
+exe = "pnpm"
+
+[tools."github:pnpm/pnpm".platforms]
+linux-x64 = { asset_pattern = "pnpm-linux-x64.tar.gz" }
+linux-arm64 = { asset_pattern = "pnpm-linux-arm64.tar.gz" }
+macos-x64 = { asset_pattern = "pnpm-darwin-x64.tar.gz" }
+macos-arm64 = { asset_pattern = "pnpm-darwin-arm64.tar.gz" }
+
+[tasks.install-nerd-fonts]
+description = "Install nerd fonts via interactive installer"
+run = 'bash -c "$(curl -fsSL https://raw.githubusercontent.com/officialrajdeepsingh/nerd-fonts-installer/main/install.sh)"'
+confirm = "This command will run external code from the internet. Do you want to proceed?"
+interactive = true

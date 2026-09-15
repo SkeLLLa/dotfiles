@@ -1,0 +1,4 @@
+# Plasma Drop launcher entries are machine-local.
+# This file is created only when absent and is never overwritten by chezmoi.
+# Add [[app]] entries locally; keep app paths and personal workflow bindings out
+# of the public source repository.
