@@ -17,14 +17,14 @@ $username\
 [](fg:color_bg_l0 bg:color_bg_l1)\
 $directory\
 [](fg:color_bg_l1 bg:color_bg_l2)\
-$git_branch\
-$git_status\
+${custom.git_branch}\
+${custom.git_status}\
 [](fg:color_bg_l2 bg:color_bg_l3)\
 [](fg:color_bg_l3 bg:color_bg_l4)\
 [](fg:color_bg_l4)\
 $fill\
 [](fg:color_bg_l4)\
-$kubernetes\
+${custom.kubernetes}\
 $helm\
 $terraform\
 [](bg:color_bg_l4 fg:color_bg_l3)\
@@ -34,9 +34,9 @@ $rust\
 [](bg:color_bg_l3 fg:color_bg_l2)\
 ${custom.ip}\
 [](bg:color_bg_l2 fg:color_bg_l1)\
-$battery\
+${custom.battery}\
 [](bg:color_bg_l1 fg:color_bg_l0)\
-$hostname\
+${custom.hostname}\
 [ ](bg:color_bg_l0)\
 $line_break\
 $os
@@ -62,16 +62,6 @@ color_orange = '#d65d0e'
 color_purple = '#b16286'
 color_yellow = '#d79921'
 color_black = '#000000'
-color_bat_10 = '#ff6961'
-color_bat_20 = '#f07663'
-color_bat_30 = '#e18366'
-color_bat_40 = '#d29068'
-color_bat_50 = '#c39d6b'
-color_bat_60 = '#b3a96d'
-color_bat_70 = '#a4b670'
-color_bat_80 = '#95c372'
-color_bat_90 = '#86d075'
-color_bat_100 = '#77dd77'
 
 [username]
 style_user = 'bg:color_bg_l0 fg:color_user'
@@ -98,23 +88,16 @@ read_only = " 󰌾"
 "~" = " "
 
 [git_branch]
-symbol = ""
-style = "bg:color_bg_l2 fg:color_fg_l2"
-format = '[ $symbol $branch ]($style)'
+disabled = true
 
 [git_status]
-style = "bg:color_bg_l2 fg:color_fg_l2"
-format = '[$all_status$ahead_behind ]($style)'
+disabled = true
 
 [fill]
 symbol = ' '
 
 [hostname]
-ssh_only = true
-format = '[$ssh_symbol $hostname]($style)'
-style = 'bg:color_bg_l0 fg:color_fg_l0'
-trim_at = '.companyname.com'
-disabled = false
+disabled = true
 
 [time]
 disabled = false
@@ -132,76 +115,51 @@ min_time = 500
 format = '[ $duration]($style)'
 style = 'fg:color_fg_l2 bg:color_bg_l2'
 
-[battery]
-full_symbol = '󰚥 '
-unknown_symbol = '󰚥 '
-charging_symbol = '󰂏 '
-discharging_symbol = '󰂌 '
-format = '[$symbol$percentage ]($style)'
+[custom.git_branch]
+command = "comb g git.branch . 2>/dev/null; echo"
+when = "true"
+shell = ["sh", "-c"]
+use_stdin = false
+format = '[  $output ]($style)'
+style = 'bg:color_bg_l2 fg:color_fg_l2'
 
-[[battery.display]]
-threshold = 10
-style = "bg:color_bg_l1 fg:color_bat_10"
-charging_symbol = '󰁺󱐋 '
-discharging_symbol = '󰁺 '
+[custom.git_status]
+command = 'echo "!"'
+when = 'test "$(comb g git.dirty . 2>/dev/null)" = true'
+shell = ["sh", "-c"]
+use_stdin = false
+format = '[ $output ]($style)'
+style = 'bg:color_bg_l2 fg:color_fg_l2'
 
-[[battery.display]]
-threshold = 20
-style = "bg:color_bg_l1 fg:color_bat_20"
-charging_symbol = '󰁻󱐋 '
-discharging_symbol = '󰁻 '
+[custom.kubernetes]
+command = "comb g.f '{{ "{{ context }}" }}' kubecontext 2>/dev/null; echo"
+when = "true"
+shell = ["sh", "-c"]
+use_stdin = false
+format = '[ ☸ $output ]($style)'
+style = 'fg:color_fg_l4 bg:color_bg_l4'
 
-[[battery.display]]
-threshold = 30
-style = "bg:color_bg_l1 fg:color_bat_30"
-charging_symbol = '󰁼󱐋 '
-discharging_symbol = '󰁼 '
+[custom.battery]
+command = "comb g battery.percent 2>/dev/null; echo"
+when = "true"
+shell = ["sh", "-c"]
+use_stdin = false
+format = '[󰚥 $output% ]($style)'
+style = 'fg:color_fg_l1 bg:color_bg_l1'
 
-[[battery.display]]
-threshold = 40
-style = "bg:color_bg_l1 fg:color_bat_40"
-charging_symbol = '󰁽󱐋 '
-discharging_symbol = '󰁽 '
-
-[[battery.display]]
-threshold = 50
-style = "bg:color_bg_l1 fg:color_bat_50"
-charging_symbol = '󰁾󱐋 '
-discharging_symbol = '󰁾 '
-
-[[battery.display]]
-threshold = 60
-style = "bg:color_bg_l1 fg:color_bat_60"
-charging_symbol = '󰁿󱐋 '
-discharging_symbol = '󰁿 '
-
-[[battery.display]]
-threshold = 70
-style = "bg:color_bg_l1 fg:color_bat_70"
-charging_symbol = '󰂀󱐋 '
-discharging_symbol = '󰂀 '
-
-[[battery.display]]
-threshold = 80
-style = "bg:color_bg_l1 fg:color_bat_80"
-charging_symbol = '󰂁󱐋 '
-discharging_symbol = '󰂁 '
-
-[[battery.display]]
-threshold = 90
-style = "bg:color_bg_l1 fg:color_bat_90"
-charging_symbol = '󰂂󱐋 '
-discharging_symbol = '󰂂 '
-
-[[battery.display]]
-threshold = 100
-style = "bg:color_bg_l1 fg:color_bat_100"
-charging_symbol = '󰚥 '
-discharging_symbol = '󱐋 '
+[custom.hostname]
+command = "comb g hostname.short 2>/dev/null; echo"
+when = 'test -n "$SSH_CONNECTION"'
+shell = ["sh", "-c"]
+use_stdin = false
+format = '[ $output]($style)'
+style = 'bg:color_bg_l0 fg:color_fg_l0'
 
 [custom.ip]
-command = "curl -s ipv4.icanhazip.com"
+command = "comb g public_ip.value 2>/dev/null; echo"
 when = "true"
+shell = ["sh", "-c"]
+use_stdin = false
 format = "[󰩠 $output]($style)"
 style = "bg:color_bg_l2 fg:color_fg_l2"
 

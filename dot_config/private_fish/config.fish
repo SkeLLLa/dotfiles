@@ -1,3 +1,3 @@
 if status is-interactive
-    # Commands to run in interactive sessions can go here
+    comb g public_ip.value >/dev/null 2>&1 &
 end

@@ -1,0 +1,9 @@
+[providers.public_ip]
+type = "http"
+url = "https://api.ipify.org?format=json"
+extract = "ip"
+
+[providers.public_ip.invalidation]
+poll = "5m"
+
+[providers.battery]

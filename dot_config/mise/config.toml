@@ -23,6 +23,7 @@ node = "latest"
 qsv = "latest"
 rtk = "latest"
 starship = "latest"
+"github:NavistAu/beachcomber" = { version = "0.9.1", rename_exe = "comb" }
 uv = "latest"
 yq = "latest"
 opencode = "1.18.30"
