@@ -1,7 +1,6 @@
 [providers.public_ip]
 type = "http"
-url = "https://api.ipify.org?format=json"
-extract = "ip"
+url = "https://ipv4.icanhazip.com/"
 
 [providers.public_ip.invalidation]
 poll = "5m"

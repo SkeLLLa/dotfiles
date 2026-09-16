@@ -148,8 +148,8 @@ format = '[ $output]($style)'
 style = 'bg:color_bg_l0 fg:color_fg_l0'
 
 [custom.ip]
-command = "comb g public_ip.value 2>/dev/null"
-when = "comb g.j public_ip.value >/dev/null 2>&1"
+command = "comb g public_ip.body 2>/dev/null"
+when = "comb g.j public_ip.body >/dev/null 2>&1"
 shell = ["sh", "-c"]
 use_stdin = false
 format = "[󰩠 $output]($style)"
