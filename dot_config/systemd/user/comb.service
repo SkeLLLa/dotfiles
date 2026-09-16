@@ -1,0 +1,14 @@
+[Unit]
+Description=Beachcomber daemon
+
+[Service]
+Type=simple
+ExecStart=%h/.local/share/mise/shims/comb daemon
+Restart=on-failure
+RestartSec=2
+TimeoutStopSec=5
+KillMode=control-group
+KillSignal=SIGTERM
+
+[Install]
+WantedBy=default.target
