@@ -24,7 +24,7 @@ ${custom.git_status}\
 [](fg:color_bg_l4)\
 $fill\
 [](fg:color_bg_l4)\
-${custom.kubernetes}\
+$kubernetes\
 $helm\
 $terraform\
 [](bg:color_bg_l4 fg:color_bg_l3)\
@@ -116,8 +116,8 @@ format = '[ $duration]($style)'
 style = 'fg:color_fg_l2 bg:color_bg_l2'
 
 [custom.git_branch]
-command = "comb g git.branch . 2>/dev/null; echo"
-when = "true"
+command = "comb g git.branch 2>/dev/null"
+when = "comb g.j git.branch >/dev/null 2>&1"
 shell = ["sh", "-c"]
 use_stdin = false
 format = '[  $output ]($style)'
@@ -125,19 +125,11 @@ style = 'bg:color_bg_l2 fg:color_fg_l2'
 
 [custom.git_status]
 command = 'echo "!"'
-when = 'test "$(comb g git.dirty . 2>/dev/null)" = true'
+when = 'test "$(comb g git.dirty 2>/dev/null)" = true'
 shell = ["sh", "-c"]
 use_stdin = false
 format = '[ $output ]($style)'
 style = 'bg:color_bg_l2 fg:color_fg_l2'
-
-[custom.kubernetes]
-command = "comb g.f '{{ "{{ context }}" }}' kubecontext 2>/dev/null; echo"
-when = "true"
-shell = ["sh", "-c"]
-use_stdin = false
-format = '[ ☸ $output ]($style)'
-style = 'fg:color_fg_l4 bg:color_bg_l4'
 
 [custom.battery]
 command = "comb g battery.percent 2>/dev/null; echo"
@@ -156,8 +148,8 @@ format = '[ $output]($style)'
 style = 'bg:color_bg_l0 fg:color_fg_l0'
 
 [custom.ip]
-command = "comb g public_ip.value 2>/dev/null; echo"
-when = "true"
+command = "comb g public_ip.value 2>/dev/null"
+when = "comb g.j public_ip.value >/dev/null 2>&1"
 shell = ["sh", "-c"]
 use_stdin = false
 format = "[󰩠 $output]($style)"
@@ -216,6 +208,10 @@ format = '[⎈ $version ]($style)'
 style = 'fg:color_fg_l4 bg:color_bg_l4'
 
 [kubernetes]
+disabled = false
+detect_files = [".terraform-version", ".terraform.lock.hcl", "terragrunt.hcl"]
+detect_extensions = ["tf", "tfvars"]
+detect_folders = [".terraform"]
 format = '[$symbol$context( \($namespace\))]($style) '
 style = 'fg:color_fg_l4 bg:color_bg_l4'
 

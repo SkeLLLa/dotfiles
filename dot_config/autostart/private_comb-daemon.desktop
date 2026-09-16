@@ -1,0 +1,10 @@
+[Desktop Entry]
+Categories=System;
+Comment=Beachcomber shell environment cache daemon
+Exec=/home/m03geek/.local/share/mise/shims/comb daemon
+GenericName=Beachcomber Daemon
+Name=Beachcomber Daemon
+Terminal=false
+Type=Application
+X-KDE-StartupNotify=false
+X-KDE-autostart-phase=0
