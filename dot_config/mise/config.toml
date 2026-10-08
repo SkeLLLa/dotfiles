@@ -12,45 +12,44 @@ CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC = "1"
 feedbackSurveyRate = "0"
 
 [tools]
-bun = "latest"
-chezmoi = "latest"
-claude-code = "latest"
-gh = "latest"
-hyperfine = "latest"
-jd = "latest"
-jsonschema = "latest"
-node = "latest"
-qsv = "latest"
-rtk = "latest"
-starship = "latest"
-"github:NavistAu/beachcomber" = { version = "0.9.1", rename_exe = "comb" }
-uv = "latest"
-yq = "latest"
-opencode = "1.18.30"
-lazygit = "0.65.1"
-"pipx:serena-agent" = "latest"
-yarn = "4.18.0"
-"github:dmtrKovalenko/fff.nvim"= { version = "0.10.6", exe = "fff-mcp", platforms = { linux-x64 = { asset_pattern = "fff-mcp-x86_64-unknown-linux-musl" }, linux-arm64 = { asset_pattern = "fff-mcp-aarch64-unknown-linux-musl" }, macos-x64 = { asset_pattern = "fff-mcp-x86_64-apple-darwin" }, macos-arm64 = { asset_pattern = "fff-mcp-aarch64-apple-darwin" } } }
-"github:redhat-et/ripwire" = { version = "0.3.8", exe = "ripwire", platforms = { linux-x64 = { asset_pattern = "ripwire-*-linux-x64.tar.gz" }, linux-arm64 = { asset_pattern = "ripwire-*-linux-arm64.tar.gz" }, macos-x64 = { asset_pattern = "ripwire-*-macos-x64.tar.gz" }, macos-arm64 = { asset_pattern = "ripwire-*-macos-arm64.tar.gz" } } }
-"github:openai/codex" = { version = "latest", exe = "codex", extract_all = true, bin_path = "bin", platforms = { linux-x64 = { asset_pattern = "codex-package-x86_64-unknown-linux-musl.tar.gz" }, linux-arm64 = { asset_pattern = "codex-package-aarch64-unknown-linux-musl.tar.gz" }, macos-x64 = { asset_pattern = "codex-package-x86_64-apple-darwin.tar.gz" }, macos-arm64 = { asset_pattern = "codex-package-aarch64-apple-darwin.tar.gz" } } }
-terragrunt = "latest"
-vault = "latest"
-fnox = "latest"
-"npm:context-mode" = "latest"
-argocd = "latest"
-pnpm = "12.4.1"
-"github:can1357/oh-my-pi" = "18.1.19"
-"npm:@earendil-works/pi-coding-agent" = "0.85.1"
+bun = "1.4.2"
+chezmoi = "2.73.0"
+claude-code = "2.1.291"
+gh = "2.102.0"
+hyperfine = "1.21.0"
+jd = "2.5.0"
+jsonschema = "17.1.1"
+node = "26.10.0"
+qsv = "23.0.1"
+rtk = "0.51.0"
+starship = "1.26.0"
+uv = "0.12.23"
+yq = "4.54.1"
+opencode = "1.18.34"
+lazygit = "0.66.0"
+"pipx:serena-agent" = "1.7.0"
+yarn = "4.18.1"
+"github:dmtrKovalenko/fff.nvim" = { version = "0.11.0", exe = "fff-mcp", platforms = { linux-x64 = { asset_pattern = "fff-mcp-x86_64-unknown-linux-musl" }, linux-arm64 = { asset_pattern = "fff-mcp-aarch64-unknown-linux-musl" }, macos-x64 = { asset_pattern = "fff-mcp-x86_64-apple-darwin" }, macos-arm64 = { asset_pattern = "fff-mcp-aarch64-apple-darwin" } } }
+"github:redhat-et/ripwire" = { version = "0.6.5", exe = "ripwire", platforms = { linux-x64 = { asset_pattern = "ripwire-*-linux-x64.tar.gz" }, linux-arm64 = { asset_pattern = "ripwire-*-linux-arm64.tar.gz" }, macos-x64 = { asset_pattern = "ripwire-*-macos-x64.tar.gz" }, macos-arm64 = { asset_pattern = "ripwire-*-macos-arm64.tar.gz" } } }
+"github:openai/codex" = { version = "rust-v0.160.1", exe = "codex", extract_all = "true", bin_path = "bin", platforms = { linux-x64 = { asset_pattern = "codex-package-x86_64-unknown-linux-musl.tar.gz" }, linux-arm64 = { asset_pattern = "codex-package-aarch64-unknown-linux-musl.tar.gz" }, macos-x64 = { asset_pattern = "codex-package-x86_64-apple-darwin.tar.gz" }, macos-arm64 = { asset_pattern = "codex-package-aarch64-apple-darwin.tar.gz" } } }
+terragrunt = "1.1.6"
+vault = "2.1.1"
+fnox = "1.36.0"
+"npm:context-mode" = "1.0.169"
+argocd = "3.5.3"
+pnpm = "12.9.1"
+"github:can1357/oh-my-pi" = "18.6.1"
+"npm:@earendil-works/pi-coding-agent" = "0.99.1"
+duckdb = "1.5.6"
 
 [tools."github:pnpm/pnpm"]
-version = "latest"
+version = "12.9.1"
 exe = "pnpm"
+platforms= { linux-x64 = { asset_pattern = "pnpm-linux-x64.tar.gz" }, linux-arm64 = { asset_pattern = "pnpm-linux-arm64.tar.gz" }, macos-x64 = { asset_pattern = "pnpm-darwin-x64.tar.gz" }, macos-arm64 = { asset_pattern = "pnpm-darwin-arm64.tar.gz" } }
 
-[tools."github:pnpm/pnpm".platforms]
-linux-x64 = { asset_pattern = "pnpm-linux-x64.tar.gz" }
-linux-arm64 = { asset_pattern = "pnpm-linux-arm64.tar.gz" }
-macos-x64 = { asset_pattern = "pnpm-darwin-x64.tar.gz" }
-macos-arm64 = { asset_pattern = "pnpm-darwin-arm64.tar.gz" }
+[tasks.bootstrap]
+description = "`mise bootstrap` installs global [tools], then checks the setup with `mise doctor`"
+run = "mise doctor"
 
 [tasks.install-nerd-fonts]
 description = "Install nerd fonts via interactive installer"
