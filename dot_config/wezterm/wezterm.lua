@@ -2,14 +2,6 @@ local wezterm = require 'wezterm'
 -- local mux = wezterm.mux
 local config = wezterm.config_builder()
 
-require("wuake").setup {
-  config = config,
-  margin_left = 0,
-  margin_top = 0,
-  margin_right = 0,
-  margin_bottom = 0,
-}
-
 config.font = wezterm.font 'JetBrainsMono Nerd Font'
 config.scrollback_lines = 10000
 config.window_close_confirmation = 'NeverPrompt'
