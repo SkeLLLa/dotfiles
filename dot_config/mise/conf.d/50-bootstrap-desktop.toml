@@ -35,6 +35,8 @@ repo_gpgcheck=0
 "dnf:zoxide" = "latest"
 "dnf:star-forge" = "latest"
 "dnf:plasma-drop" = "latest"
+# 3-way merge GUI (git mergetool, chezmoi merge)
+"dnf:kdiff3" = "latest"
 
 [bootstrap.hooks]
 post-packages = "systemctl --user enable --now star-forge.service plasma-drop.service"

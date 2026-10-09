@@ -3,7 +3,7 @@
 f=$(mktemp) && trap 'rm -f "$f"' EXIT && cat >"$f"
 k() { kwriteconfig6 --file "$f" --group "$1" --key "$2" "$3"; }
 k General AccentColor 255,255,255
-k Icons Theme "Cawnonical Mono-Glyph Icon Suite (Accented)"
+k Icons Theme YAMIS
 k KDE LookAndFeelPackage org.kde.breezedark.desktop
 k KDE ShowDeleteCommand false
 k KDE contrast 4
