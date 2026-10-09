@@ -1,0 +1,67 @@
+# star-forge badges consumed by ~/.config/starship.toml ([custom.sf_*] modules).
+# Zero/empty values render empty, so starship hides the module.
+
+[daemon]
+idle_exit = "30m"
+
+[badge.git_branch]
+type = "builtin"
+name = "git_branch"
+
+[badge.git_commit]
+type = "builtin"
+name = "git_commit"
+
+[badge.git_conflicted]
+type = "builtin"
+name = "git_counts"
+field = "conflicted"
+format = "="
+interval = "3s"
+
+[badge.git_staged]
+type = "builtin"
+name = "git_counts"
+field = "staged"
+format = "+"
+interval = "3s"
+
+[badge.git_modified]
+type = "builtin"
+name = "git_counts"
+field = "modified"
+format = "!"
+interval = "3s"
+
+[badge.git_untracked]
+type = "builtin"
+name = "git_counts"
+field = "untracked"
+format = "?"
+interval = "3s"
+
+[badge.git_ahead]
+type = "builtin"
+name = "git_counts"
+field = "ahead"
+format = "⇡{value}"
+interval = "3s"
+
+[badge.git_behind]
+type = "builtin"
+name = "git_counts"
+field = "behind"
+format = "⇣{value}"
+interval = "3s"
+
+[badge.battery]
+type = "builtin"
+name = "battery"
+interval = "60s"
+
+[badge.public_ip]
+type = "http"
+url = "https://api.ipify.org?format=json"
+interval = "10m"
+timeout = "3s"
+extract = { kind = "json", pointer = "/ip" }

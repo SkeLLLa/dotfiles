@@ -1,0 +1,29 @@
+# Script utilities and LaTeX for ~/bin scripts (yq comes from 20-cli).
+# Apply with: mise bootstrap --only files,packages
+
+[bootstrap.files."/etc/yum.repos.d/calmemo.repo"]
+phase = "pre-packages"
+owner = "root"
+group = "root"
+mode = "0644"
+content = """
+[calmemo]
+name=calmemo
+baseurl=https://skellla.github.io/calmemo/rpm/x86_64
+enabled=1
+gpgcheck=0
+repo_gpgcheck=0
+"""
+
+[bootstrap.packages]
+# HTTP, JSON and text processing
+"dnf:curl" = "latest"
+"dnf:jq" = "latest"
+"dnf:perl-interpreter" = "latest"
+"dnf:gawk" = "latest"
+# working days log
+"dnf:calmemo" = "latest"
+# pdflatex + packages (textcomp/fontenc ship with texlive-latex)
+"dnf:texlive-latex" = "latest"
+"dnf:texlive-geometry" = "latest"
+"dnf:texlive-mlmodern" = "latest"

@@ -1,8 +1,0 @@
-[providers.public_ip]
-type = "http"
-url = "https://ipv4.icanhazip.com/"
-
-[providers.public_ip.invalidation]
-poll = "5m"
-
-[providers.battery]

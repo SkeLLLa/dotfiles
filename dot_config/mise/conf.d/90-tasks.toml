@@ -1,0 +1,9 @@
+[tasks.bootstrap]
+description = "`mise bootstrap` installs global [tools], then checks the setup with `mise doctor`"
+run = "mise doctor"
+
+[tasks.install-nerd-fonts]
+description = "Install nerd fonts via interactive installer"
+run = 'bash -c "$(curl -fsSL https://raw.githubusercontent.com/officialrajdeepsingh/nerd-fonts-installer/main/install.sh)"'
+confirm = "This command will run external code from the internet. Do you want to proceed?"
+interactive = true

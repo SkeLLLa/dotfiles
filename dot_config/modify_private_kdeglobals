@@ -1,0 +1,15 @@
+#!/bin/sh
+# Plasma regenerates colours etc. in kdeglobals; only pin the settings below.
+f=$(mktemp) && trap 'rm -f "$f"' EXIT && cat >"$f"
+k() { kwriteconfig6 --file "$f" --group "$1" --key "$2" "$3"; }
+k General AccentColor 255,255,255
+k Icons Theme "Cawnonical Mono-Glyph Icon Suite (Accented)"
+k KDE LookAndFeelPackage org.kde.breezedark.desktop
+k KDE ShowDeleteCommand false
+k KDE contrast 4
+k "KFileDialog Settings" "Show hidden files" true
+k "KFileDialog Settings" "Sort by" Date
+k "KFileDialog Settings" "Sort directories first" true
+k "KFileDialog Settings" "View Style" DetailTree
+k "KFileDialog Settings" "Breadcrumb Navigation" false
+cat "$f"

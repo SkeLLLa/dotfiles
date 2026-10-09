@@ -1,5 +1,7 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
+scan_timeout = 200
+
 right_format = """
 [](fg:color_bg_l3)\
 $character\
@@ -17,8 +19,13 @@ $username\
 [](fg:color_bg_l0 bg:color_bg_l1)\
 $directory\
 [](fg:color_bg_l1 bg:color_bg_l2)\
-${custom.git_branch}\
-${custom.git_status}\
+${custom.sf_git_branch}\
+${custom.sf_git_conflicted}\
+${custom.sf_git_staged}\
+${custom.sf_git_modified}\
+${custom.sf_git_untracked}\
+${custom.sf_git_ahead}\
+${custom.sf_git_behind}\
 [](fg:color_bg_l2 bg:color_bg_l3)\
 [](fg:color_bg_l3 bg:color_bg_l4)\
 [](fg:color_bg_l4)\
@@ -32,11 +39,11 @@ $package\
 $nodejs\
 $rust\
 [](bg:color_bg_l3 fg:color_bg_l2)\
-${custom.ip}\
+${custom.sf_public_ip}\
 [](bg:color_bg_l2 fg:color_bg_l1)\
-${custom.battery}\
+${custom.sf_battery}\
 [](bg:color_bg_l1 fg:color_bg_l0)\
-${custom.hostname}\
+$hostname\
 [ ](bg:color_bg_l0)\
 $line_break\
 $os
@@ -87,17 +94,8 @@ read_only = " 󰌾"
 "dev" = " "
 "~" = " "
 
-[git_branch]
-disabled = true
-
-[git_status]
-disabled = true
-
 [fill]
 symbol = ' '
-
-[hostname]
-disabled = true
 
 [time]
 disabled = false
@@ -115,45 +113,92 @@ min_time = 500
 format = '[ $duration]($style)'
 style = 'fg:color_fg_l2 bg:color_bg_l2'
 
-[custom.git_branch]
-command = "comb g git.branch 2>/dev/null"
-when = "comb g.j git.branch >/dev/null 2>&1"
-shell = ["sh", "-c"]
+# Git and battery are served from the star-forge cache (stfg, ~/.config/star-forge/config.toml).
+[git_branch]
+disabled = true
+
+[git_status]
+disabled = true
+
+[battery]
+disabled = true
+
+[custom.sf_git_branch]
+command = "git_branch"
+shell = ["stfg"]
 use_stdin = false
-format = '[  $output ]($style)'
+when = true
+format = '([  $output ]($style))'
 style = 'bg:color_bg_l2 fg:color_fg_l2'
 
-[custom.git_status]
-command = 'echo "!"'
-when = 'test "$(comb g git.dirty 2>/dev/null)" = true'
-shell = ["sh", "-c"]
+[custom.sf_git_conflicted]
+command = "git_conflicted"
+shell = ["stfg"]
 use_stdin = false
-format = '[ $output ]($style)'
+when = true
+format = '([$output ]($style))'
 style = 'bg:color_bg_l2 fg:color_fg_l2'
 
-[custom.battery]
-command = "comb g battery.percent 2>/dev/null; echo"
-when = "true"
-shell = ["sh", "-c"]
+[custom.sf_git_staged]
+command = "git_staged"
+shell = ["stfg"]
 use_stdin = false
-format = '[󰚥 $output% ]($style)'
+when = true
+format = '([$output ]($style))'
+style = 'bg:color_bg_l2 fg:color_fg_l2'
+
+[custom.sf_git_modified]
+command = "git_modified"
+shell = ["stfg"]
+use_stdin = false
+when = true
+format = '([$output ]($style))'
+style = 'bg:color_bg_l2 fg:color_fg_l2'
+
+[custom.sf_git_untracked]
+command = "git_untracked"
+shell = ["stfg"]
+use_stdin = false
+when = true
+format = '([$output ]($style))'
+style = 'bg:color_bg_l2 fg:color_fg_l2'
+
+[custom.sf_git_ahead]
+command = "git_ahead"
+shell = ["stfg"]
+use_stdin = false
+when = true
+format = '([$output ]($style))'
+style = 'bg:color_bg_l2 fg:color_fg_l2'
+
+[custom.sf_git_behind]
+command = "git_behind"
+shell = ["stfg"]
+use_stdin = false
+when = true
+format = '([$output ]($style))'
+style = 'bg:color_bg_l2 fg:color_fg_l2'
+
+[custom.sf_public_ip]
+command = "public_ip"
+shell = ["stfg"]
+use_stdin = false
+when = true
+format = '([󰩠 $output ]($style))'
+style = 'bg:color_bg_l2 fg:color_fg_l2'
+
+[custom.sf_battery]
+command = "battery"
+shell = ["stfg"]
+use_stdin = false
+when = true
+format = '([󰚥 $output% ]($style))'
 style = 'fg:color_fg_l1 bg:color_bg_l1'
 
-[custom.hostname]
-command = "comb g hostname.short 2>/dev/null; echo"
-when = 'test -n "$SSH_CONNECTION"'
-shell = ["sh", "-c"]
-use_stdin = false
-format = '[ $output]($style)'
+[hostname]
+ssh_only = true
+format = '[ $hostname]($style)'
 style = 'bg:color_bg_l0 fg:color_fg_l0'
-
-[custom.ip]
-command = "comb g public_ip.body 2>/dev/null"
-when = "comb g.j public_ip.body >/dev/null 2>&1"
-shell = ["sh", "-c"]
-use_stdin = false
-format = "[󰩠 $output]($style)"
-style = "bg:color_bg_l2 fg:color_fg_l2"
 
 [os]
 disabled = false
@@ -212,7 +257,7 @@ disabled = false
 detect_files = [".terraform-version", ".terraform.lock.hcl", "terragrunt.hcl"]
 detect_extensions = ["tf", "tfvars"]
 detect_folders = [".terraform"]
-format = '[$symbol$context( \($namespace\))]($style) '
+format = '[$symbol$context( \($namespace\)) ]($style)'
 style = 'fg:color_fg_l4 bg:color_bg_l4'
 
 [terraform]

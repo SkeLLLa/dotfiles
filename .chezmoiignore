@@ -1,0 +1,25 @@
+{{- if not (lookPath "plasmashell") }}
+# KDE Plasma only
+.config/kdeglobals
+.config/kcminputrc
+.config/kxkbrc
+.config/dolphinrc
+.config/plasma-localerc
+.config/ktrashrc
+.config/gtk-3.0
+.config/gtk-4.0
+.config/plasma-drop
+.local/share/konsole
+{{- end }}
+{{- if not (stat "/etc/udev/rules.d/61-drm-intel-alias.rules") }}
+# needs the /dev/dri/intel-card udev alias (Intel iGPU + NVIDIA dGPU laptop)
+.config/environment.d/10-kwin-intel.conf
+{{- end }}
+{{- if not (stat (joinPath .chezmoi.homeDir ".local/share/mbx/bin/cargo")) }}
+# needs mbx's cargo wrapper
+.config/rust-analyzer
+{{- end }}
+{{- if not (lookPath "dnf") }}
+# writes /etc/yum.repos.d and installs dnf packages
+.config/mise/conf.d/*-bootstrap-*.toml
+{{- end }}

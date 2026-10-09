@@ -1,0 +1,14 @@
+[tools]
+chezmoi = "2.73.0"
+fnox = "1.39.0"
+gh = "2.102.0"
+starship = "1.26.0"
+rtk = "0.51.0"
+lazygit = "0.66.0"
+hyperfine = "1.21.0"
+jd = "2.5.0"
+jsonschema = "17.1.1"
+yq = "4.54.1"
+qsv = "23.0.1"
+duckdb = "1.5.6"
+"github:redhat-et/ripwire" = { version = "0.6.5", exe = "ripwire", platforms = { linux-x64 = { asset_pattern = "ripwire-*-linux-x64.tar.gz" }, linux-arm64 = { asset_pattern = "ripwire-*-linux-arm64.tar.gz" }, macos-x64 = { asset_pattern = "ripwire-*-macos-x64.tar.gz" }, macos-arm64 = { asset_pattern = "ripwire-*-macos-arm64.tar.gz" } } }
