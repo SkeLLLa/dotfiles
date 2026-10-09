@@ -29,23 +29,12 @@ gpgcheck=0
 repo_gpgcheck=0
 """
 
-# psd only reads browser definitions from /usr/share/psd/browsers and ships none for Brave Origin.
-[bootstrap.files."/usr/share/psd/browsers/brave-origin"]
-owner = "root"
-group = "root"
-mode = "0644"
-content = """
-DIRArr[0]="$XDG_CONFIG_HOME/BraveSoftware/Brave-Origin-Beta"
-PSNAME="brave"
-"""
-
 [bootstrap.packages]
 # shell + prompt (starship comes from 20-cli)
 "dnf:fish" = "latest"
 "dnf:zoxide" = "latest"
 "dnf:star-forge" = "latest"
-"dnf:profile-sync-daemon" = "latest"
 "dnf:plasma-drop" = "latest"
 
 [bootstrap.hooks]
-post-packages = "systemctl --user enable --now star-forge.service"
+post-packages = "systemctl --user enable --now star-forge.service plasma-drop.service"
