@@ -6,5 +6,4 @@ opencode = "1.18.34"
 "npm:@earendil-works/pi-coding-agent" = "0.99.1"
 # MCP servers
 "pipx:serena-agent" = "1.7.0"
-"npm:context-mode" = "1.0.169"
 "github:dmtrKovalenko/fff.nvim" = { version = "0.11.0", exe = "fff-mcp", platforms = { linux-x64 = { asset_pattern = "fff-mcp-x86_64-unknown-linux-musl" }, linux-arm64 = { asset_pattern = "fff-mcp-aarch64-unknown-linux-musl" }, macos-x64 = { asset_pattern = "fff-mcp-x86_64-apple-darwin" }, macos-arm64 = { asset_pattern = "fff-mcp-aarch64-apple-darwin" } } }
