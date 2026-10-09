@@ -1,0 +1,59 @@
+# quartz-drop personal config. Reloaded automatically on save.
+
+[[app]]
+name = "ghostty"
+hotkey = "cmd+escape"
+bundle_id = "com.mitchellh.ghostty"
+
+[app.placement]
+width = "100%"
+height = "100%"
+
+[[app]]
+name = "wezterm"
+hotkey = "cmd+f1"
+bundle_id = "com.github.wez.wezterm"
+
+[app.placement]
+width = "100%"
+height = "100%"
+
+[[app]]
+name = "slack"
+hotkey = "cmd+f2"
+bundle_id = "com.tinyspeck.slackmacgap"
+
+[app.placement]
+width = "50%"
+height = "100%"
+position = "left"
+
+[[app]]
+name = "mercurygram"
+hotkey = "cmd+f3"
+bundle_id = "it.belloworld.mercurygram"
+
+[app.placement]
+width = "50%"
+height = "100%"
+position = "right"
+
+[[app]]
+name = "teams"
+hotkey = "cmd+f4"
+bundle_id = "com.microsoft.teams2"
+
+[app.placement]
+width = "50%"
+height = "100%"
+position = "right"
+
+[[app]]
+name = "chromium"
+hotkey = "cmd+f5"
+# Ungoogled Chromium: `brew install --cask ungoogled-chromium` (installs Chromium.app).
+bundle_id = "org.chromium.Chromium"
+
+[app.placement]
+width = "100%"
+height = "100%"

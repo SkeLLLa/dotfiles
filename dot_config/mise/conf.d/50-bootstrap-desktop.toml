@@ -30,9 +30,8 @@ repo_gpgcheck=0
 """
 
 [bootstrap.packages]
-# shell + prompt (starship comes from 20-cli)
+# shell + prompt (starship and zoxide come from 20-cli)
 "dnf:fish" = "latest"
-"dnf:zoxide" = "latest"
 "dnf:star-forge" = "latest"
 "dnf:plasma-drop" = "latest"
 # 3-way merge GUI (git mergetool, chezmoi merge)

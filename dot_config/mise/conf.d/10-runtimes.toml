@@ -1,11 +1,11 @@
 [tools]
-node = "26.10.0"
+node = "26.11.1"
 bun = "1.4.2"
-uv = "0.12.23"
+uv = "0.13.0"
 yarn = "4.18.1"
-pnpm = "12.9.1"
+pnpm = "12.10.1"
 
 [tools."github:pnpm/pnpm"]
-version = "12.9.1"
+version = "12.10.1"
 exe = "pnpm"
 platforms = { linux-x64 = { asset_pattern = "pnpm-linux-x64.tar.gz" }, linux-arm64 = { asset_pattern = "pnpm-linux-arm64.tar.gz" }, macos-x64 = { asset_pattern = "pnpm-darwin-x64.tar.gz" }, macos-arm64 = { asset_pattern = "pnpm-darwin-arm64.tar.gz" } }

@@ -7,6 +7,16 @@ config.scrollback_lines = 10000
 config.window_close_confirmation = 'NeverPrompt'
 config.enable_wayland = true
 config.window_background_opacity = 0.80
+config.set_environment_variables = {
+    LANG = 'en_CA.UTF-8',
+    LC_ADDRESS = 'C',
+    LC_MEASUREMENT = 'C',
+    LC_MONETARY = 'C',
+    LC_NAME = 'C',
+    LC_PAPER = 'C',
+    LC_TELEPHONE = 'C',
+    LC_TIME = 'C',
+}
 config.keys = {
     -- Bind Ctrl+Shift+PageDown to split vertically (create a new pane to the right)
     {

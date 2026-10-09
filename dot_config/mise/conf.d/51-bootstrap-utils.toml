@@ -1,4 +1,4 @@
-# Script utilities and LaTeX for ~/bin scripts (yq comes from 20-cli).
+# Script utilities and LaTeX for ~/bin scripts (jq and yq come from 20-cli).
 # Apply with: mise bootstrap --only files,packages
 
 [bootstrap.files."/etc/yum.repos.d/calmemo.repo"]
@@ -18,7 +18,6 @@ repo_gpgcheck=0
 [bootstrap.packages]
 # HTTP, JSON and text processing
 "dnf:curl" = "latest"
-"dnf:jq" = "latest"
 "dnf:perl-interpreter" = "latest"
 "dnf:gawk" = "latest"
 # working days log

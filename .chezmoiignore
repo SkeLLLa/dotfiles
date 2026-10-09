@@ -23,3 +23,13 @@
 # writes /etc/yum.repos.d and installs dnf packages
 .config/mise/conf.d/*-bootstrap-*.toml
 {{- end }}
+{{- if ne .chezmoi.os "darwin" }}
+# macOS only
+.config/mise/conf.d/52-macos-apps.toml
+# points Zed at Ollama, which 52-macos-apps.toml installs
+.config/zed
+# CLI inside Ollama.app
+.local/bin/ollama
+# quick-drop terminal hotkeys (macOS counterpart of plasma-drop)
+.config/quartz-drop
+{{- end }}

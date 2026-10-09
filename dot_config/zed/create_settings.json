@@ -1,0 +1,34 @@
+// Zed settings. Created once by chezmoi and then owned by Zed (the UI edits this file).
+// Local AI runs on Ollama (see ~/.config/mise/conf.d/52-macos-apps.toml): models load on the
+// first request and unload after 10 minutes idle.
+{
+  // Next-edit prediction with sweep-next-edit-1.5B (alias with an 8K context, `mise run ollama:models`)
+  "edit_predictions": {
+    "provider": "ollama",
+    "ollama": {
+      "api_url": "http://localhost:11434",
+      "model": "sweep-next-edit",
+      "prompt_format": "sweep",
+      "max_output_tokens": 256
+    }
+  },
+  "language_models": {
+    "ollama": {
+      "api_url": "http://localhost:11434",
+      // list models explicitly so the autocomplete model does not show up as a chat model
+      "auto_discover": false,
+      "available_models": [
+        {
+          // MLX nvfp4, 22 GiB; Zed sends max_tokens as num_ctx
+          "name": "qwen3.6:35b-a3b-coding-nvfp4",
+          "display_name": "Qwen3.6 35B-A3B Coding (local)",
+          "max_tokens": 65536,
+          "keep_alive": "10m",
+          "supports_tools": true,
+          "supports_thinking": true,
+          "supports_images": true
+        }
+      ]
+    }
+  }
+}

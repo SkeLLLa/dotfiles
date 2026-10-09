@@ -1,0 +1,98 @@
+# macOS packages installed by mise without Homebrew (casks and bottles).
+# Apply with: mise bootstrap packages apply --manager brew && mise bootstrap packages apply --manager brew-cask
+[tools]
+# fish shell (dnf installs it on Fedora, see 50-bootstrap-desktop)
+"aqua:fish-shell/fish-shell" = { version = "latest", os = ["macos"] }
+
+[bootstrap.packages]
+# desktop apps
+"brew-cask:ghostty" = { version = "latest", os = "macos" }
+"brew-cask:wezterm" = { version = "latest", os = "macos" }
+"brew-cask:microsoft-teams" = { version = "latest", os = "macos" }
+"brew-cask:ungoogled-chromium" = { version = "latest", os = "macos" }
+"brew-cask:kde-connect" = { version = "latest", os = "macos" }
+# local LLM server (MLX engine on Apple Silicon); the app updates itself
+"brew-cask:ollama-app" = { version = "latest", os = "macos" }
+# GNU/modern CLI tools (macOS ships BSD tar and an older curl)
+"brew:curl" = { version = "latest", os = "macos" }
+"brew:gnu-tar" = { version = "latest", os = "macos" }
+"brew:xz" = { version = "latest", os = "macos" }
+# counterparts of the dnf packages in 50-bootstrap-desktop / 51-bootstrap-utils
+"brew:gawk" = { version = "latest", os = "macos" }
+"brew-cask:kdiff3" = { version = "latest", os = "macos" }
+"brew-cask:basictex" = { version = "latest", os = "macos" }
+# resource monitors (CPU, memory, disks, network, processes)
+"brew:btop" = { version = "latest", os = "macos" }
+"brew:htop" = { version = "latest", os = "macos" }
+# menu bar and window management
+"brew-cask:stats" = { version = "latest", os = "macos" }
+"brew-cask:hiddenbar" = { version = "latest", os = "macos" }
+"brew-cask:rectangle" = { version = "latest", os = "macos" }
+"brew-cask:alt-tab" = { version = "latest", os = "macos" }
+"brew-cask:monitorcontrol" = { version = "latest", os = "macos" }
+# launcher, archives, media, uninstaller
+"brew-cask:raycast" = { version = "latest", os = "macos" }
+"brew-cask:the-unarchiver" = { version = "latest", os = "macos" }
+"brew-cask:iina" = { version = "latest", os = "macos" }
+"brew-cask:appcleaner" = { version = "latest", os = "macos" }
+
+# Ollama.app is started by launchd, so it only sees variables set with `launchctl setenv`.
+# Models load on the first request and unload after OLLAMA_KEEP_ALIVE idle.
+# Apply with: mise bootstrap macos launchd-agents apply
+[bootstrap.macos.launchd.agents."com.user.ollama-env"]
+program = "/bin/sh"
+args = ["-c", '''
+env | grep '^OLLAMA_' | while IFS='=' read -r k v; do launchctl setenv "$k" "$v"; done
+if pgrep -xq Ollama; then
+  osascript -e 'quit app "Ollama"'
+  for i in 1 2 3 4 5 6 7 8 9 10; do pgrep -xq Ollama || break; sleep 1; done
+fi
+open -ga Ollama
+''']
+run_at_load = true
+kickstart = true
+process_type = "Background"
+environment = { OLLAMA_KEEP_ALIVE = "10m", OLLAMA_MAX_LOADED_MODELS = "2", OLLAMA_NUM_PARALLEL = "1", OLLAMA_CONTEXT_LENGTH = "65536", OLLAMA_NO_CLOUD = "1" }
+
+# GPU wired memory cap (default ~36 GiB of 48). 38 GiB fits qwen3.6:35b-a3b-mxfp8 (35.4 GiB)
+# with a 64K context and still leaves macOS 10 GiB. A cap, not a reservation.
+# Apply with: mise bootstrap files apply && sudo sysctl iogpu.wired_limit_mb=38912
+[bootstrap.files."/Library/LaunchDaemons/com.user.iogpu-wired-limit.plist"]
+owner = "root"
+group = "wheel"
+mode = "0644"
+content = '''
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.user.iogpu-wired-limit</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/sbin/sysctl</string>
+        <string>iogpu.wired_limit_mb=38912</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+</dict>
+</plist>
+'''
+
+# Local models: Apple Silicon builds only (MLX nvfp4/mxfp8; the 1.5B autocomplete model runs on Metal).
+# Run with: mise run ollama:models
+[tasks."ollama:models"]
+description = "Pull local Ollama models and create the Zed autocomplete alias"
+run = '''
+ollama pull qwen3.6:35b-a3b-coding-nvfp4
+ollama pull hf.co/sweepai/sweep-next-edit-1.5B:latest
+modelfile=$(mktemp)
+printf 'FROM hf.co/sweepai/sweep-next-edit-1.5B:latest\nPARAMETER num_ctx 8192\nPARAMETER temperature 0\n' > "$modelfile"
+ollama create sweep-next-edit -f "$modelfile"
+rm -f "$modelfile"
+ollama rm hf.co/sweepai/sweep-next-edit-1.5B:latest
+'''
+
+[bootstrap.hooks]
+# BasicTeX is minimal; add the extra LaTeX packages the Linux setup gets from texlive-* (needs sudo)
+post-packages = "sudo /Library/TeX/texbin/tlmgr update --self && sudo /Library/TeX/texbin/tlmgr install mlmodern"
