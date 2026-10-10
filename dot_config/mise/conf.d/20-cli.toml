@@ -26,5 +26,7 @@ eza = "0.23.5"
 "github:dalance/procs" = "0.14.12"
 bottom = "0.14.9"
 zoxide = "0.10.0"
+# HTTP/SOCKS5 forward proxy for LAN devices (macOS agent in 52-macos-apps)
+"github:go-gost/gost" = "3.3.0"
 # Linux binaries only; macOS gets btop from brew in 52-macos-apps
 btop = { version = "1.4.7", os = ["linux"] }

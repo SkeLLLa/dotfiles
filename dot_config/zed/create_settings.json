@@ -3,6 +3,13 @@
 // first request and unload after 10 minutes idle.
 {
   // Next-edit prediction with sweep-next-edit-1.5B (alias with an 8K context, `mise run ollama:models`)
+  "agent": {
+    // local model for the git panel's "Generate Commit Message" button
+    "commit_message_model": {
+      "provider": "ollama",
+      "model": "qwen3.6:35b-a3b-coding-nvfp4"
+    }
+  },
   "edit_predictions": {
     "provider": "ollama",
     "ollama": {
