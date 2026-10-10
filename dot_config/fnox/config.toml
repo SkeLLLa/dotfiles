@@ -6,3 +6,4 @@ service = "fnox"
 
 [secrets]
 GITHUB_PERSONAL_ACCESS_TOKEN= { provider = "keychain", value = "GITHUB_PERSONAL_ACCESS_TOKEN" }
+PASEO_PASSWORD= { provider = "keychain", value = "PASEO_PASSWORD" }
