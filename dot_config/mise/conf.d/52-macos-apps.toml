@@ -120,6 +120,8 @@ ollama rm hf.co/sweepai/sweep-next-edit-1.5B:latest
 # NetBird mesh VPN (Linux gets it from dnf in 53-bootstrap-network). The pkg installs
 # /Applications/NetBird.app, links /usr/local/bin/netbird and sets up its root LaunchDaemon
 # on a plain utun, so it needs no system extension. To update: bump version and sha256.
+# The daemon gets NB_USE_LEGACY_ROUTING=true: otherwise it binds its sockets to the default
+# route interface, which under GlobalProtect is the VPN utun, so LAN peers never go P2P.
 # Run with: mise run netbird:install, then sign in with: netbird up
 [tasks."netbird:install"]
 description = "Install or update NetBird (CLI, menu bar app, daemon) from its signed macOS pkg"
@@ -127,17 +129,27 @@ run = '''
 set -eu
 version=0.80.0
 sha256=65705b4dc244c8fe6a89a0b13ffaa6f41383fc0bdcbf8c0503f46d23150a2efd
+plist=/Library/LaunchDaemons/netbird.plist
 installed=$(pkgutil --pkg-info io.netbird.client 2>/dev/null | awk '/^version:/ {print $2}')
 if [ "$installed" = "$version" ]; then
   echo "netbird:install: NetBird $version already installed"
-  exit 0
+else
+  tmp=$(mktemp -d)
+  trap 'rm -rf "$tmp"' EXIT
+  curl -fsSL -o "$tmp/netbird.pkg" "https://github.com/netbirdio/netbird/releases/download/v$version/netbird_${version}_darwin.pkg"
+  echo "$sha256  $tmp/netbird.pkg" | shasum -a 256 -c -
+  pkgutil --check-signature "$tmp/netbird.pkg" | grep -q 'NetBird GmbH (TA739QLA7A)'
+  sudo installer -pkg "$tmp/netbird.pkg" -target /
 fi
-tmp=$(mktemp -d)
-trap 'rm -rf "$tmp"' EXIT
-curl -fsSL -o "$tmp/netbird.pkg" "https://github.com/netbirdio/netbird/releases/download/v$version/netbird_${version}_darwin.pkg"
-echo "$sha256  $tmp/netbird.pkg" | shasum -a 256 -c -
-pkgutil --check-signature "$tmp/netbird.pkg" | grep -q 'NetBird GmbH (TA739QLA7A)'
-sudo installer -pkg "$tmp/netbird.pkg" -target /
+if [ "$(/usr/libexec/PlistBuddy -c 'Print :EnvironmentVariables:NB_USE_LEGACY_ROUTING' "$plist" 2>/dev/null)" != true ]; then
+  sudo /usr/libexec/PlistBuddy -c 'Add :EnvironmentVariables dict' "$plist" 2>/dev/null || true
+  sudo /usr/libexec/PlistBuddy -c 'Delete :EnvironmentVariables:NB_USE_LEGACY_ROUTING' "$plist" 2>/dev/null || true
+  sudo /usr/libexec/PlistBuddy -c 'Add :EnvironmentVariables:NB_USE_LEGACY_ROUTING string true' "$plist"
+  sudo launchctl bootout system/netbird 2>/dev/null || true
+  while sudo launchctl print system/netbird >/dev/null 2>&1; do sleep 1; done
+  sudo launchctl bootstrap system "$plist"
+  echo "netbird:install: daemon restarted with NB_USE_LEGACY_ROUTING=true"
+fi
 '''
 
 [bootstrap.hooks]

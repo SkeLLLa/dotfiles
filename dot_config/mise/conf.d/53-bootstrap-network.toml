@@ -1,7 +1,7 @@
 # Fedora networking: Tailscale and NetBird mesh VPNs. On macOS use the Mac App Store app: the
 # standalone build needs a system extension that MDM may block.
 # Apply with: mise bootstrap --only files,packages,services
-# then sign in once with: sudo tailscale up / netbird up
+# then sign in once with: sudo tailscale up / netbird up --wireguard-port 10001
 
 [bootstrap.files."/etc/yum.repos.d/tailscale.repo"]
 phase = "pre-packages"
@@ -47,6 +47,32 @@ repo_gpgcheck=1
 [bootstrap.services.tailscaled]
 state = "running"
 enabled = true
+
+# Pin NetBird's WireGuard/ICE port to 10001 (same as the Mac). With the default 51820 the daemon
+# may listen on a random port while still advertising 51820, so LAN peers can't go P2P. The port
+# lives in the daemon's profile next to its keys, so patch it before each start instead of
+# owning the file. FedoraWorkstation's firewalld zone already allows UDP 1025-65535.
+# Takes effect on the next restart: sudo systemctl daemon-reload && sudo systemctl restart netbird
+[bootstrap.files."/usr/local/libexec/netbird-pin-wireguard-port"]
+owner = "root"
+group = "root"
+mode = "0755"
+content = '''
+#!/bin/sh
+# Called by netbird.service before start; no profile yet means `netbird up` hasn't run.
+f=/var/lib/netbird/default.json
+[ -f "$f" ] || exit 0
+sed -i -E 's/("WgPort": *)[0-9]+/\110001/' "$f"
+'''
+
+[bootstrap.files."/etc/systemd/system/netbird.service.d/10-wireguard-port.conf"]
+owner = "root"
+group = "root"
+mode = "0644"
+content = """
+[Service]
+ExecStartPre=/usr/local/libexec/netbird-pin-wireguard-port
+"""
 
 [bootstrap.services.netbird]
 state = "running"
